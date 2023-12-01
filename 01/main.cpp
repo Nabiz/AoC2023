@@ -29,7 +29,7 @@ void replaceSpelledDigits(string& s)
     preplace(s, "zero", "z0ero");
 }
 
-int main()
+int puzzleResult(bool part2 = false)
 {
     fstream inputFile;
     int sum = 0;
@@ -40,6 +40,10 @@ int main()
         string line;
         while (getline(inputFile, line))
         {   
+            if(part2)
+            {
+                replaceSpelledDigits(line);
+            }
             vector<int> digitsInLine;
             for(char character: line)
             {
@@ -55,33 +59,12 @@ int main()
         }
     }
     inputFile.close();
-    cout << sum << endl;
-    
-    // //PART 2
-    sum = 0;
-    inputFile.open("input", ios::in);
-    if(inputFile.is_open())
-    {
-        string line;
-        while (getline(inputFile, line))
-        {   
-            replaceSpelledDigits(line);
-            vector<int> digitsInLine;
-            for(char character: line)
-            {
-                if(isdigit(character))
-                {
-                    digitsInLine.push_back(character-48);
-                }
-            }
-            if(!digitsInLine.empty())
-            {
-                cout << 10*digitsInLine[0] + digitsInLine[digitsInLine.size()-1] << endl;
-                sum += 10*digitsInLine[0] + digitsInLine[digitsInLine.size()-1];
-            }
-        }
-    }
-    inputFile.close();
-    cout << sum;
+    return sum;
+}
+
+int main()
+{
+    cout << puzzleResult() << endl;
+    cout << puzzleResult(true) << endl;
     return 0;
 }
