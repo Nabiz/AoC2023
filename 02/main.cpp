@@ -9,7 +9,8 @@ using namespace std;
 int main()
 {
     fstream inputFile;
-    int sum = 0;
+    int sumPart1 = 0;
+    int sumPart2 = 0;
 
     int maxRed = 12;
     int maxGreen = 13;
@@ -26,6 +27,7 @@ int main()
         {   
             lineNumber++;
             bool possible = true;
+            int minRed = 0, minGreen = 0, minBlue = 0;
             string::const_iterator searchStart(line.cbegin());
             while(regex_search(searchStart, line.cend(), roundMatch, re))
             {
@@ -37,7 +39,11 @@ int main()
                     if(number > maxRed)
                     {
                         possible = false;
-                    } 
+                    }
+                    if(minRed < number)
+                    {
+                        minRed = number;
+                    }
                 }
                 else if(match.find(" green") != string::npos)
                 {
@@ -45,7 +51,11 @@ int main()
                     if(number > maxGreen)
                     {
                         possible = false;
-                    } 
+                    }
+                    if(minGreen < number)
+                    {
+                        minGreen = number;
+                    }
                 }
                 else if(match.find(" blue") != string::npos)
                 {
@@ -53,22 +63,27 @@ int main()
                     if(number > maxBlue)
                     {
                         possible = false;
-                    } 
+                    }
+                    if(minBlue < number)
+                    {
+                        minBlue = number;
+                    }
                 }
-
                 searchStart = roundMatch.suffix().first;
-                if(!possible)
-                {
-                    break;
-                }
+                // if(!possible)
+                // {
+                //     break;
+                // }
             }
             if(possible)
             {
-                sum+=lineNumber;
+                sumPart1+=lineNumber;
             }
+            sumPart2 += minRed * minGreen * minBlue;
         }
     }
     inputFile.close();
-    cout << sum;
+    cout << sumPart1 << endl;
+    cout << sumPart2 << endl;
     return 0;
 }
