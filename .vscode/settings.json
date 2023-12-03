@@ -4,6 +4,10 @@
         "vector": "cpp",
         "fstream": "cpp",
         "xstring": "cpp",
-        "iosfwd": "cpp"
+        "iosfwd": "cpp",
+        "regex": "cpp",
+        "string": "cpp",
+        "xutility": "cpp",
+        "utility": "cpp"
     }
 }
