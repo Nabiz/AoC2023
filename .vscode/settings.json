@@ -8,6 +8,8 @@
         "regex": "cpp",
         "string": "cpp",
         "xutility": "cpp",
-        "utility": "cpp"
+        "utility": "cpp",
+        "algorithm": "cpp",
+        "ostream": "cpp"
     }
 }
