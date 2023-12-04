@@ -62,7 +62,6 @@ int main()
             if(schema[i][j] >= 48 && schema[i][j] <= 57)
             {
                 digits.push_back(int(schema[i][j]-48));
-                //cout << schema[i][j];
                 if(!isSpecial)
                 {
                     isSpecial = checkNeighbourhood(schema, i, j, MAX_ROW, MAX_COL);
@@ -77,9 +76,7 @@ int main()
                     {
                         sum += digits[n] * pow(10, digits.size()-1-n);
                     }
-                    cout << sum - psum << " <-SPECIAL";
                 }
-                if(!digits.empty()) cout << endl;
                 digits.clear();
                 isSpecial = false;
             }
@@ -91,9 +88,7 @@ int main()
             {
                 sum += digits[n] * pow(10, digits.size()-1-n);
             }
-            cout << sum - psum << " <-SPECIAL";
         }
-        if(!digits.empty()) cout << endl;
         digits.clear();
         isSpecial = false;
     }
