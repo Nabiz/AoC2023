@@ -52,12 +52,13 @@ int main()
     }
     cout << sum << endl;
 
-    for(auto hand : camelHands) hand.updateToJokerRule();
-    sort(camelHands.begin(), camelHands.end(), compareCameleHands);
-    sum = 0;
-    for(int i=1;i<=camelHands.size();i++)
-    {
-        sum+=i*camelHands[i-1].m_bid;
-    }
+    // for(auto hand : camelHands) hand.updateToJokerRule();
+    // sort(camelHands.begin(), camelHands.end(), compareCameleHands);
+    // for(auto hand : camelHands) cout << hand.m_handString << " typ: " << hand.m_type << endl;
+    // sum = 0;
+    // for(int i=1;i<=camelHands.size();i++)
+    // {
+    //     sum+=i*camelHands[i-1].m_bid;
+    // }
     cout << sum << endl;
 }

@@ -1,5 +1,7 @@
 #include "hand.h"
 #include <algorithm>
+#include <vector>
+#include <iostream>
 
 Hand::Hand(string handString, int bid)
 {
@@ -39,51 +41,58 @@ Hand::Hand(string handString, int bid)
 
 void Hand::calculateType()
 {
-    int pair = 0;
-    bool three = false;
-    int jokers = count(m_cardValues, m_cardValues + 5, 1);
     m_type = HIGH_CARD;
+    vector<int> countedValues;
+    vector<int> counts;
+    int jokers = count(m_cardValues, m_cardValues + 5, 1);
+    
     for (int i = 0; i < 5; i++)
     {
         if(m_cardValues[i]==1) continue;
-        int cardCount = count(m_cardValues, m_cardValues + 5, m_cardValues[i]);
-        if(cardCount + jokers == 5)
+        
+        if(countedValues.empty())
         {
-            m_type = FIVE;
-            break;
+            counts.push_back(count(m_cardValues, m_cardValues + 5, m_cardValues[i]));
+            countedValues.push_back(m_cardValues[i]);
+            continue;
         }
-        if(cardCount + jokers == 4)
+        if(find(countedValues.begin(), countedValues.end(), m_cardValues[i]) == countedValues.end())
         {
-            m_type = FOUR;
-            break;
+            countedValues.push_back(m_cardValues[i]);
+            counts.push_back(count(m_cardValues, m_cardValues + 5, m_cardValues[i]));
         }
-        if(cardCount + jokers == 3)
+    }
+    sort(counts.begin(), counts.end(), greater<>());
+    switch (counts[0])
+    {
+    case 5:
+        m_type = FIVE;
+        break;
+    case 4:
+        m_type = FOUR;
+        break;
+    case 3:
+        if(counts[1] == 2)
         {
-            jokers = 0;
-            if(pair)
-            {
-                m_type = FULL;
-                break;
-            }
+            m_type = FULL;
+        }
+        else
+        {
             m_type = THREE;
-            three = true;
         }
-        if(cardCount == 2)
+        break;
+    case 2:
+        if(counts[1] == 2)
         {
-            jokers = 0;
-            if(three)
-            {
-                m_type = FULL;
-                break;
-            }
-            if(pair == 2)
-            {
-                m_type = TWO_PAIR;
-                break;
-            }
-            m_type = PAIR;
-            pair += 1;
+            m_type = TWO_PAIR;
         }
+        else
+        {
+            m_type = PAIR;
+        }
+        break;
+    default:
+        break;
     }
 }
 
