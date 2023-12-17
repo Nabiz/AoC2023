@@ -1,5 +1,6 @@
 #pragma once
 #include <string>
+#include <vector>
 
 using namespace std;
 
@@ -8,7 +9,7 @@ class Hand
 public:
     enum camelTypes {HIGH_CARD, PAIR, TWO_PAIR, THREE, FULL, FOUR, FIVE};
     string m_handString;
-    int m_cardValues[5];
+    vector<int> m_cardValues;
     int m_bid;
     int m_type;
     int rank;
@@ -16,4 +17,5 @@ public:
     void updateToJokerRule();
 private:
     void calculateType();
+    void setType(int newType);
 };
